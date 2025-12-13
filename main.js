@@ -3,6 +3,7 @@
 document.getElementById('tasksList').addEventListener('click', event => {
   if (event.target.tagName === 'BUTTON' && event.target.name === 'buttonDelete') {
     event.target.closest('li').remove();
+    saveTasksToLocalStorage();
     return;
   }
   if (event.target.tagName === 'BUTTON' && event.target.name === 'buttonEdit') {
@@ -11,6 +12,7 @@ document.getElementById('tasksList').addEventListener('click', event => {
     if (newText !== null && newText.trim() !== '') {
       textElement.textContent = newText.trim();
     }
+    saveTasksToLocalStorage();
     return;
   }
   if (event.target.tagName === 'LI' || event.target.tagName === 'SPAN') {
@@ -20,7 +22,6 @@ document.getElementById('tasksList').addEventListener('click', event => {
 })
 document.addEventListener('DOMContentLoaded', () => {
   loadTasksFromLocalStorage();
-  setInterval(saveTasksToLocalStorage, 5000);
 })
 const addTask = () => {
   if (document.getElementById('inputTask').value.trim() === '') {
@@ -43,6 +44,7 @@ const addTask = () => {
     </div>`;
   tasks.appendChild(newTask);
   document.getElementById('inputTask').value = '';
+  saveTasksToLocalStorage();
 }
 const addSavedTasks = (task) => {
   const tasksList = document.getElementById('tasksList');
