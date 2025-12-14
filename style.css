@@ -35,7 +35,7 @@ form {
   background-color: #ffffff;
   padding: 32px;
   border-radius: 12px;
-  filter: blur(30%);
+  filter: none; 
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   border: 1px solid #e2e8f0;
   margin: 0 auto 20px auto;
@@ -61,15 +61,8 @@ form {
 .btn-add:hover {
   background-color: #7c3aed;
 }
-[name = 'buttonDelete']{
-  padding: 6px 10px;
-  background-color: #8b5cf6;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-[name = 'buttonEdit']{
+[name='buttonDelete'],
+[name='buttonEdit'] {
   padding: 6px 10px;
   background-color: #8b5cf6;
   color: white;
@@ -80,19 +73,97 @@ form {
 #tasksList {
   list-style: none;
   padding: 0;
+  width: 100%;
+  max-width: 600px;
 }
 #tasksList li {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  align-items: center; 
+  gap: 12px;
   padding: 12px;
   margin-bottom: 8px;
   background-color: #f8fafc;
   border-radius: 8px;
   border: 1px solid #e2e8f0;
+  transition: all 0.2s;
 }
-.done .task-text {
+.check-done {
+  flex-shrink: 0;
+  position: relative;
+}
+.task-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.check {
+  cursor: pointer;
+  display: block;
+  width: 18px;
+  height: 18px;
+  -webkit-tap-highlight-color: transparent;
+}
+.check svg {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: #c8ccd4;
+  stroke-width: 1.5;
+  transition: all 0.2s ease;
+}
+.check svg path {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 0;
+}
+.check svg polyline {
+  stroke-dasharray: 22;
+  stroke-dashoffset: 66;
+}
+.check:hover svg {
+  stroke: #C77DFF;
+}
+.task-checkbox:checked + .check svg {
+  stroke: #C77DFF;
+}
+.task-checkbox:checked + .check svg path {
+  stroke-dashoffset: 60;
+  transition: all 0.3s linear;
+}
+.task-checkbox:checked + .check svg polyline {
+  stroke-dashoffset: 42;
+  transition: all 0.2s linear;
+  transition-delay: 0.15s;
+}
+li.done .task-checkbox:checked + .check svg {
+  stroke: #8b5cf6;
+}
+.task-content {
+  flex-grow: 1; 
+  min-width: 0;
+}
+.task-text {
+  font-weight: 500;
+  color: #1f2937;
+  margin-bottom: 4px;
+  word-break: break-word; 
+}
+.task-time {
+  font-size: 12px;
+  color: #6b7280;
+}
+.task-actions {
+  display: flex;
+  gap: 8px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+li:hover .task-actions {
+  opacity: 1; 
+}
+li.done .task-text {
   text-decoration: line-through;
+  color: #9ca3af;
   opacity: 0.7;
 }
 #labelTasks {
